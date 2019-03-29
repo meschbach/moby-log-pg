@@ -6,6 +6,4 @@ services:
   - postgresql
 addons:
   postgresql: "11"
-before_script:
-  - psql -c 'create database \'dev-docker-logs\' identified by \'dev-docker-logs\';' -U postgres
-  - psql -U dev-docker-logs <pg-01-base.sql
+before_script: .travis/before_script.sh
