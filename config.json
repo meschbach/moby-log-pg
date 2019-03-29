@@ -1,0 +1,49 @@
+{
+  "description": "Postgres log sink",
+  "documentation": "https://github.com/meschbach/moby-log-pg",
+  "workdir" : "/plugin",
+  "entrypoint" : ["/usr/local/bin/node","service.js"],
+  "network" : { "type" : "host"},
+  "interface": {
+    "types": ["docker.logdriver/1.0"],
+    "socket": "pg-sink.sock"
+  },
+  "env": [
+    {
+      "name": "LOG_LEVEL",
+      "description": "Set log level to output for plugin logs",
+      "value": "info",
+      "settable": ["value"]
+    },
+    {
+      "name": "PGUSER",
+      "description": "Postgres user to connect as",
+      "value": "docker",
+      "settable": ["value"]
+    },
+    {
+      "name": "PGPASSWORD",
+      "description": "Postgres password",
+      "value": "docker",
+      "settable": ["value"]
+    },
+    {
+      "name": "PGPORT",
+      "description": "Postgres port",
+      "value": "5432",
+      "settable": ["value"]
+    },
+    {
+      "name": "PGDATABASE",
+      "description": "Postgres database",
+      "value": "prod-docker-logs",
+      "settable": ["value"]
+    },
+    {
+      "name": "PGHOST",
+      "description": "Postgres Host",
+      "value": "localhost",
+      "settable": ["value"]
+    }
+  ]
+}

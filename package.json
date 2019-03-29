@@ -1,0 +1,39 @@
+{
+  "name": "moby-log-pg",
+  "version": "1.0.0",
+  "description": "Moby/Docker Log Driver to log to Postgres",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/meschbach/moby-log-pg.git"
+  },
+  "keywords": [
+    "docker",
+    "postgres"
+  ],
+  "author": "Mark Eschbach <meschbach@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/meschbach/moby-log-pg/issues"
+  },
+  "homepage": "https://github.com/meschbach/moby-log-pg#readme",
+  "dependencies": {
+    "body-parser": "1.18.3",
+    "bunyan": "1.8.12",
+    "bunyan-format": "0.2.1",
+    "express": "4.16.4",
+    "junk-bucket": "1.1.1",
+    "pg": "7.9.0",
+    "protobufjs": "6.8.8",
+    "yargs": "13.2.2"
+  },
+  "devDependencies": {
+    "chai": "4.2.0",
+    "mocha": "6.0.2",
+    "request": "^2.88.0",
+    "request-promise-native": "^1.0.7"
+  }
+}
