@@ -38,7 +38,7 @@ describe('DockerLogEntryInternalizer', function () {
 		describe("When written to the internalizer", function(){
 			beforeEach( function(){
 				const entry = this.LogEntry.create();
-				entry.Line = "";
+				entry.line = "";
 
 				this.internalizer.write(entry);
 			});
