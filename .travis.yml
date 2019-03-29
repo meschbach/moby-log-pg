@@ -12,5 +12,5 @@ jobs:
       node_js: "11"
 stages:
   - test
-  - deploy
+  - name: deploy
     if: branch = master
