@@ -115,11 +115,6 @@ describe("Integration Test", function () {
 			const pluginContext = rootContext.subcontext("pluginContext");
 			pluginContext.socket = socketFile;
 			pluginContext.pg_config = {
-				host: "localhost",
-				port: 5432,
-				user: "dev-docker-logs",
-				password: "dev-docker-logs",
-				database: "dev-docker-logs",
 				connectionTimeoutMillis: 50
 			};
 
