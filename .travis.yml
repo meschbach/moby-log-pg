@@ -10,6 +10,8 @@ jobs:
     - stage: deploy
       node_js: "11"
       script: .travis/deploy.sh
+      env:
+        secure: 9hirR9igYHGSc/WGy01rg/SDRS4/QZokXSkb73rZfiPuv8d0qim/6pPcEWH+QzROvvfG6yKPf1AnhHHouaB/TqhHQ3+h2vZP+19gfPx9cedI3G78lrDcRxYdTvRXISW5qEajHUoAr+4NJ/f1Rd40IWtaUIspgQ4LN60DtEz3bxA9EnHWmCZWfNHsSwBxeZtTcLiyBkAfPHVSk+xcTpBrd1vQv5ygbtx/OvzVCZctFSwPSj4xss94D7XwhXwCupSMKpOT1vcV7Aq8S3bSiapkGj1Tti9vIWyXMlHVIypKiRp37o3uQtcunOs/fzFyUR61ujpcgfufJ0DchW8wTcAXKimgo/Up9Uuhq4l3FaTxlWcSMp3gCuJqjSMeFoqAY/Bs7cL5KdEFWXttGmpuMbp4mijNM0IyCGWy4QK4LOOb/h8bqvvzloNOYmWrShYj4dx9r7kOyS1YtrIbKS6bbnIKBz8pDK6dmbserWgDr8rQHJ7kNH4GaYYv1t7ovZkDMyMqgzrDNhmv2JImkiK5wuJyZlfXWgt+WwOsxiqa7NV4hYrR3JMLkNqG/OUSKO1lurlXG69VVQFg8N/JPBvPqkki254Nxn6d64uCWWIyZKXb7qKVIxHuUN5b1p97sDS6cCPixMEb61PX8POyDPiCOsWApTQt5Y/U3cP8k4vUV1KlgEE=
 
 stages:
   - test
