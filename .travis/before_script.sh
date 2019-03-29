@@ -14,5 +14,8 @@ sudo docker exec -i postgres11 bash <<< 'until pg_isready -U postgres > /dev/nul
 echo "Postgres 11 ready"
 
 # Add the user
-psql -c 'CREATE ROLE "dev-docker-logs" IDENTIFIED BY "dev-docker-logs"' -U postgres -h 127.0.0.1
-PGPASSWORD=dev-docker-logs psql  -h 127.0.0.1 -U dev-docker-logs <pg-01-base.sql
+psql -c 'CREATE USER "dev-docker-logs" WITH PASSWORD "dev-docker-logs"' -U postgres -h 127.0.0.1
+psql -c 'CREATE DATABASE "dev-docker-logs" OWNER "dev-docker-logs"' -U postgres -h 127.0.0.1
+
+export PGPASSWORD=dev-docker-logs
+psql  -h 127.0.0.1 -U dev-docker-logs dev-docker-logs <pg-01-base.sql
