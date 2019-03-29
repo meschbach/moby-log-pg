@@ -24,19 +24,24 @@ describe('DockerLogEntryInternalizer', function () {
 	beforeEach(async function () {
 		this.protoBufdocument = await protobuf.load( __dirname + "/../entry.proto" );
 		this.LogEntry = this.protoBufdocument.lookupType("LogEntry");
-		this.capture = new CapturingWritable();
+		this.capture = new CapturingWritable({
+			objectMode:true
+		});
 
 		this.internalizer = new DockerLogEntryInternalizer(defaultNullLogger);
 		this.internalizer.pipe(this.capture);
 	});
 
-	describe("Given an empty Line", function () {
+	describe("Given an empty Line", function () { //TODO: These two don't really make sense
 		describe("When written to the internalizer", function(){
-			it("Does not emit the line", async function () {
+			beforeEach( function(){
 				const entry = this.LogEntry.create();
 				entry.Line = "";
 
 				this.internalizer.write(entry);
+			});
+
+			it("Does not emit the line", async function () {
 				expect(this.capture.writes.length).to.eq(0);
 			});
 		});
@@ -45,18 +50,11 @@ describe('DockerLogEntryInternalizer', function () {
 	describe("Given a valid line", function () {
 		describe("When written to the internalizer", function(){
 			it("Does not emit the line", async function () {
-				const document = await protobuf.load( __dirname + "/../entry.proto" );
-				const LogEntry = document.lookupType("LogEntry");
-				const entry = LogEntry.create();
+				const entry = this.LogEntry.create();
 				entry.line = "Your hair is everywhere";
 
-				const capture = new CapturingWritable({
-					objectMode:true
-				});
-				const internalizer = new DockerLogEntryInternalizer(defaultNullLogger);
-				internalizer.pipe(capture);
-				internalizer.write(entry);
-				expect(capture.writes.length).to.eq(1);
+				this.internalizer.write(entry);
+				expect(this.capture.writes.length).to.eq(1);
 			});
 		});
 	});
