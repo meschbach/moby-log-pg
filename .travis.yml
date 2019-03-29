@@ -11,5 +11,6 @@ jobs:
       script: .travis/deploy.sh
 
 stages:
+  - test
   - name: deploy
     if: branch = master
