@@ -1,16 +1,11 @@
 language: node_js
-jobs:
-  include:
-    - stage: test
-      before_script: .travis/before_script.sh
-      script: .travis/script.sh
-      node_js:
-        - "10"
-        - "11"
-    - stage: deploy
-      script: .travis/deploy.sh
-      node_js: "11"
-stages:
-  - test
-  - name: deploy
-    if: branch = master
+node_js:
+  - "10"
+  - "11"
+before_script: .travis/before_script.sh
+script: .travis/script.sh
+deploy:
+  provider: script
+  script: .travis/deploy.sh
+  on:
+    branch: master
