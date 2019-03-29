@@ -79,6 +79,11 @@ describe('DockerLogEntryInternalizer', function () {
 					})()
 				]);
 			});
+
+			it("writes the next log entry", async function () {
+				this.internalizer.write(this.entry);
+				expect(this.capture.writes.length).to.eq(1);
+			});
 		});
 	});
 });
