@@ -153,10 +153,10 @@ describe("Integration Test", function () {
 			});
 
 			it("Registers the messages", async function () {
-				await delay(10);
 				const endingMessageCount = await countMessages(this.testPool);
 				expect(endingMessageCount).to.eq(this.startingMessageCount + 2);
 			});
+
 			it("has the correct container count", async function () {
 				expect( await countContainers(this.testPool)).to.eq(this.startingContainersCount + 1 );
 			})

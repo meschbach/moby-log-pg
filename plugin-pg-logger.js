@@ -1,5 +1,6 @@
 const bodyParser = require('body-parser');
 const Future = require("junk-bucket/future");
+const {promiseEvent} = require("junk-bucket/future");
 
 async function pluginLogger( router, loggerPlugin, context ){
 	const contexts = {};
@@ -67,6 +68,7 @@ async function consumeLogging( sourceSocket, context, meta, pool, driverID ){
 	const framing = new LengthPrefixedFrameIngress( {}, context.logger.child({istream: "frame parser"}) );
 	const logEntryInternalizer = new DockerLogEntryInternalizer( context.logger.child({istream: "LogEntry internalizer"}) );
 	const databaseSink = await newContainerSink( pool, meta, context.logger.child({istream: "pg-sink"}), driverID );
+	const doneEvent = promiseEvent(databaseSink, "finish");
 
 	//Connect to the socket
 	const pipe = fs.createReadStream(sourceSocket);
@@ -78,10 +80,15 @@ async function consumeLogging( sourceSocket, context, meta, pool, driverID ){
 
 
 	//Attach to the context
-	context.onCleanup(() => {
-		pipe.close();
+	context.onCleanup(async () => {
 		context.logger.info("Cleaning up");
+		await doneEvent;
 	});
+	return  {
+		end: () => {
+			pipe.close();
+		}
+	}
 }
 
 const {Context} = require("junk-bucket/context");
