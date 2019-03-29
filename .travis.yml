@@ -4,8 +4,12 @@ node_js:
   - "11"
 before_script: .travis/before_script.sh
 script: .travis/script.sh
-deploy:
-  provider: script
-  script: .travis/deploy.sh
-  on:
-    branch: master
+jobs:
+  include:
+    - stage: deploy
+      node_js: "11"
+      script: .travis/deploy.sh
+
+stages:
+  - name: deploy
+    if: branch = master

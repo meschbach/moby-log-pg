@@ -10,6 +10,7 @@ docker build . --tag "$image"
 
 # Build the plugin image
 id=$(docker create --name plugin-image "$image" true)
+mkdir -p moby-log-pg
 docker export "$id" | tar -x -C moby-log-pg/rootfs
-cp config.json  moby-log-pg
+cp config.json moby-log-pg
 docker plugin create "$image" moby-log-pg
