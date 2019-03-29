@@ -1,12 +1,12 @@
 language: node_js
-node_js:
-  - "10"
-  - "11"
 jobs:
   include:
     - stage: test
       before_script: .travis/before_script.sh
       script: .travis/script.sh
+      node_js:
+        - "10"
+        - "11"
     - stage: deploy
       script: .travis/deploy.sh
       node_js: "11"
