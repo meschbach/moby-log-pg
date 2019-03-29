@@ -18,4 +18,4 @@ psql -c "CREATE USER logger WITH PASSWORD 'logger'" -U postgres -h 127.0.0.1
 psql -c 'CREATE DATABASE logger OWNER logger' -U postgres -h 127.0.0.1
 
 export PGPASSWORD=logger
-psql  -h 127.0.0.1 -U dev-docker-logs dev-docker-logs <pg-01-base.sql
+psql  -h 127.0.0.1 -U logger logger <pg-01-base.sql
