@@ -2,5 +2,15 @@ language: node_js
 node_js:
   - "10"
   - "11"
-before_script: .travis/before_script.sh
-script: .travis/script.sh
+jobs:
+  include:
+    - stage: test
+      before_script: .travis/before_script.sh
+      script: .travis/script.sh
+    - stage: deploy
+      script: .travis/deploy.sh
+      node_js: "11"
+stages:
+  - test
+  - deploy
+    if: branch = master
