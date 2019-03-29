@@ -46,3 +46,13 @@ not delete containers if the plugin does not respond correctly to starting appli
 The simplest way to deploy a test version is to run `./deploy-image.sh`.  This will create a new plugin named
 `test-plugin`.  Follow the normal utilization procedure and tail your docker logs.  This is normally
 `/var/log/docker.log` however may also be directed to your `journald` instance (`journald -u docker -f`).
+
+### Accessing Docker Daemon on OSX
+
+Depending on your exact install the Docker daemon can run in one of several ways.  Docker for Mac can, at least at the
+time of writing, be accessed via `~/Library/Containers/com.docker.docker/Data/vms/0/tty`.  For example:
+
+`screen ~/Library/Containers/com.docker.docker/Data/vms/0/tty`
+
+### Refs
+[https://github.com/cpuguy83/docker-log-driver-test](https://github.com/cpuguy83/docker-log-driver-test) - Example Driver in Go
