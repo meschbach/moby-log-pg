@@ -48,6 +48,11 @@ class DockerLogEntryInternalizer extends Transform {
 	_transform(msg, encoding, callback) {
 		let err = null, value = null;
 		try {
+			const partial = msg.partial_log_metadata;
+			if( partial &&  partial.last ){
+				this.emit("last-entry", msg);
+			}
+
 			const rawLine = msg.line;
 			if( rawLine ) {
 				const line = rawLine.toString("utf-8");

@@ -4,7 +4,7 @@ const {defaultNullLogger} = require("junk-bucket/logging");
 
 const {Writable} = require("stream");
 const protobuf = require("protobufjs");
-const {promiseEvent} = require("junk-bucket/future");
+const {promiseEvent, parallel, delay} = require("junk-bucket/future");
 
 class CapturingWritable extends Writable {
 	constructor(props = {}) {
@@ -67,13 +67,18 @@ describe('DockerLogEntryInternalizer', function () {
 				const entry = this.LogEntry.create();
 				entry.line = "last entry";
 				entry.partial_log_metadata = this.PartialLogEntryMetadata.create({last:true});
-
-				this.internalizer.write(entry);
+				this.entry = entry;
 			});
 
-			it("emits an event", async function () {
-				await promiseEvent(this.internalizer, "last-entry");
-			})
+			it("emits the 'last-entry' event", async function () {
+				await parallel([
+					promiseEvent(this.internalizer, "last-entry"),
+					(async () => {
+						await delay(10);
+						this.internalizer.write(this.entry)
+					})()
+				]);
+			});
 		});
 	});
 });
