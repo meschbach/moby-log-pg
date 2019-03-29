@@ -133,8 +133,8 @@ describe("Integration Test", function () {
 			this.startingMessageCount = await countMessages(this.testPool);
 			this.startingContainersCount = await countContainers(this.testPool);
 		});
-		afterEach(function () {
-			this.rootContext.cleanup();
+		afterEach(async function () {
+			await this.rootContext.cleanup();
 		});
 
 		it("logs the driver", async function(){
