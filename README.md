@@ -72,4 +72,16 @@ select entry->>'line' as line, container_id FROM messages
 WHERE container_id IN (
 	SELECT id FROM containers WHERE meta->'Info'->>'ContainerImageName' = 'alpine'
 )
+ORDER BY messages.id DESC
+```
+
+Alternatively you can use the following:
+
+```postgresql
+select
+	entry->>'line' as line,
+		meta->'Info'->>'ContainerName' as container_name,
+	meta->'Info'->>'ContainerImageName' as image
+FROM messages INNER JOIN containers ON messages.container_id = containers.id
+ORDER BY messages.id DESC
 ```
