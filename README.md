@@ -6,7 +6,7 @@ A Docker Logging Plugin to store standard out and standard error to a Postgres d
 
 ### Launching a container:
 ```bash
-docker run -d --log-driver=meschbach/moby-log-pg:1.0.0 alpine echo "Test" 
+docker run -d --log-driver=meschbach/moby-log-pg-plugin:1.0.0 alpine echo "Test" 
 ```
 
 ### Viewing Log Entries via utilities
@@ -27,8 +27,8 @@ An example query to generate the lines:
 
 Usage should be relatively easy:
 ```bash
-docker plugin install meschbach/moby-log-pg:1.0.0
-docker plugin set meschbach/moby-log-pg:1.0.0 PGHOST=pg.example.com PGUSER=super-secret-user PGPASSWORD=super-secret-password
+docker plugin install meschbach/moby-log-pg-plugin:1.0.0
+docker plugin set meschbach/moby-log-pg-plugin:1.0.0 PGHOST=pg.example.com PGUSER=super-secret-user PGPASSWORD=super-secret-password
 ```
 
 Most Postgres environmental properties may be set using this.  All properties can be set on install also.
