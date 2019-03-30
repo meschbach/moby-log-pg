@@ -31,7 +31,8 @@ docker plugin install meschbach/moby-log-pg-plugin:1.0.0
 docker plugin set meschbach/moby-log-pg-plugin:1.0.0 PGHOST=pg.example.com PGUSER=super-secret-user PGPASSWORD=super-secret-password
 ```
 
-Most Postgres environmental properties may be set using this.  All properties can be set on install also.
+Most Postgres environmental properties may be set using this.  All properties can be set on install also.  If the plugin
+can not connect to the database then the plugin will fail to be enabled.  Check your docker logs for details.
 
 ### Requirements
 * Postgres 11 is currently required.  Open to supporting older version through PRs :-).
