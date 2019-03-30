@@ -57,3 +57,19 @@ time of writing, be accessed via `~/Library/Containers/com.docker.docker/Data/vm
 
 ### Refs
 [https://github.com/cpuguy83/docker-log-driver-test](https://github.com/cpuguy83/docker-log-driver-test) - Example Driver in Go
+
+## Example Queries
+
+Once the plugin is enabled (happens by default if the install has no errors) you may test the plugin with something like
+the following:
+```bash
+docker run -d --log-driver=meschbach/moby-log-pg-plugin:1.0.0 alpine echo "test"
+```
+
+This will log the entry may then be found via a Postgres query like the following:
+```postgresql
+select entry->>'line' as line, container_id FROM messages
+WHERE container_id IN (
+	SELECT id FROM containers WHERE meta->'Info'->>'ContainerImageName' = 'alpine'
+)
+```
