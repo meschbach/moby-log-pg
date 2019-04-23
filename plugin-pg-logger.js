@@ -93,7 +93,8 @@ async function consumeLogging( sourceSocket, context, meta, pool, driverID ){
 
 const {Context} = require("junk-bucket/context");
 const express = require("express");
-const pg = require("pg/lib");
+const pg = require("pg/lib"); //TODO: `pg/lib` v `pg` v just getting `Pool`?
+const {newDriverLogger} = require("./service-logger");
 
 async function newDriverInstance( pool ) {
 	const insertResponse = await pool.query("INSERT INTO driver_instances (created_at) VALUES (now()) RETURNING id", []);
@@ -109,11 +110,13 @@ async function mobyPostgresLogger( context ){
 	stdLogger.info("Starting Postgres sink");
 	//Connect to the data stores
 	const pool = new pg.Pool(context.pg_config);
-	const logger = stdLogger;
 	const driverID = await newDriverInstance(pool);
 
+	//Configure logging context
+	const databaseLogger = newDriverLogger(pool, driverID);
+
 	//Context
-	const serviceContext = new Context("docker-logger", logger );
+	const serviceContext = new Context("docker-logger", databaseLogger );
 	//Create the server
 	const application = express();
 	application.use(bodyParser.json({
