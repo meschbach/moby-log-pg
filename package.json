@@ -1,6 +1,6 @@
 {
   "name": "moby-log-pg",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Moby/Docker Log Driver to log to Postgres",
   "main": "index.js",
   "scripts": {
