@@ -16,6 +16,7 @@ async function dockerPluginMain( stdLogger ){
 
 
 	function stopInstance(){
+		stdLogger.info("Stopping Postgres Sink");
 		rootContext.cleanup();
 	}
 
